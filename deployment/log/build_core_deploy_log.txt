@@ -1,0 +1,9 @@
+Buildfile: C:\Project\MendixApp\deployment\build_core.xml
+
+deploy:
+     [copy] Copying 32 files to C:\Project\MendixApp\deployment
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+

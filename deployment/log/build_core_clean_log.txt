@@ -1,0 +1,9 @@
+Buildfile: C:\Project\MendixApp\deployment\build_core.xml
+
+clean:
+   [delete] Deleting directory C:\Project\MendixApp\deployment\model
+
+BUILD SUCCESSFUL
+Total time: 1 second
+
+
