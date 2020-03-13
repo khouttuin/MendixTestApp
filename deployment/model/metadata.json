@@ -27,6 +27,11 @@
     }
   ],
   "ScheduledEvents": [],
+  "Configuration": {
+    "SourceDatabaseType": "HSQLDB",
+    "SourceDatabaseName": "default",
+    "SourceBuiltInDatabasePath": "model/sampledata/data/database"
+  },
   "RequestHandlers": [
     {
       "Name": "/api/",

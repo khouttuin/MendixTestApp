@@ -4,6 +4,6 @@ deploy:
      [copy] Copying 32 files to C:\Project\MendixApp\deployment
 
 BUILD SUCCESSFUL
-Total time: 0 seconds
+Total time: 1 second
 
 

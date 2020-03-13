@@ -33,7 +33,7 @@ ALTER USER SA SET LOCAL TRUE
 CREATE SCHEMA PUBLIC AUTHORIZATION DBA
 CREATE FUNCTION PUBLIC.MX_TOLOCALDATETIME(IN V TIMESTAMP,IN TIMEZONEID VARCHAR(50)) RETURNS TIMESTAMP SPECIFIC MX_TOLOCALDATETIME_10098 LANGUAGE JAVA DETERMINISTIC NO SQL CALLED ON NULL INPUT EXTERNAL NAME 'CLASSPATH:com.mendix.connectionbus.connections.jdbc.implementations.hsqldb.DateTimeLocalizationConverter.convertToLocalDateTime'
 SET SCHEMA PUBLIC
-CREATE SEQUENCE PUBLIC."myfirstmodule$coronamelding_melderid_mxseq" AS BIGINT START WITH 1
+CREATE SEQUENCE PUBLIC."coronameldingmodule$coronamelding_melderid_mxseq" AS BIGINT START WITH 1
 CREATE SEQUENCE PUBLIC."system$filedocument_fileid_mxseq" AS BIGINT START WITH 1
 CREATE MEMORY TABLE PUBLIC."mendixsystem$entity"("id" VARCHAR(36) COLLATE SQL_TEXT_UCC NOT NULL PRIMARY KEY,"entity_name" VARCHAR(511) COLLATE SQL_TEXT_UCC NOT NULL,"table_name" VARCHAR(255) COLLATE SQL_TEXT_UCC NOT NULL,"superentity_id" VARCHAR(255) COLLATE SQL_TEXT_UCC,"remote" BOOLEAN)
 CREATE INDEX "idx_mendixsystem$entity_entity_name" ON PUBLIC."mendixsystem$entity"("entity_name")
@@ -70,7 +70,7 @@ CREATE MEMORY TABLE PUBLIC."system$grantableroles"("system$userroleid1" BIGINT N
 CREATE INDEX "idx_system$grantableroles_system$userrole_system$userrole" ON PUBLIC."system$grantableroles"("system$userroleid2","system$userroleid1")
 CREATE MEMORY TABLE PUBLIC."system$image"("id" BIGINT NOT NULL PRIMARY KEY,"publicthumbnailpath" VARCHAR(500) COLLATE SQL_TEXT_UCC)
 CREATE MEMORY TABLE PUBLIC."administration$account"("id" BIGINT NOT NULL PRIMARY KEY,"email" VARCHAR(200) COLLATE SQL_TEXT_UCC,"fullname" VARCHAR(200) COLLATE SQL_TEXT_UCC,"islocaluser" BOOLEAN)
-CREATE MEMORY TABLE PUBLIC."myfirstmodule$coronamelding"("id" BIGINT NOT NULL PRIMARY KEY,"melderid" BIGINT,"datumeersteklachten" TIMESTAMP,"klachten" VARCHAR(200) COLLATE SQL_TEXT_UCC,"locatieinfectieopgelopen" VARCHAR(200) COLLATE SQL_TEXT_UCC)
+CREATE MEMORY TABLE PUBLIC."coronameldingmodule$coronamelding"("id" BIGINT NOT NULL PRIMARY KEY,"melderid" BIGINT,"datumeersteklachten" TIMESTAMP,"klachten" VARCHAR(200) COLLATE SQL_TEXT_UCC,"locatieinfectieopgelopen" VARCHAR(200) COLLATE SQL_TEXT_UCC)
 CREATE MEMORY TABLE PUBLIC."system$filedocument"("id" BIGINT NOT NULL PRIMARY KEY,"__uuid__" VARCHAR(36) COLLATE SQL_TEXT_UCC,"deleteafterdownload" BOOLEAN,"changeddate" TIMESTAMP,"contents" VARBINARY(16777216),"createddate" TIMESTAMP,"size" BIGINT,"hascontents" BOOLEAN,"fileid" BIGINT,"__filename__" BIGINT,"name" VARCHAR(400) COLLATE SQL_TEXT_UCC,"submetaobjectname" VARCHAR(255) COLLATE SQL_TEXT_UCC,"system$owner" BIGINT,"system$changedby" BIGINT)
 CREATE INDEX "idx_system$filedocument_fileid_asc" ON PUBLIC."system$filedocument"("fileid","id")
 CREATE INDEX "idx_system$filedocument_size_asc" ON PUBLIC."system$filedocument"("size","id")
@@ -101,7 +101,7 @@ CREATE MEMORY TABLE PUBLIC."system$autocommitentry"("id" BIGINT NOT NULL PRIMARY
 CREATE INDEX "idx_system$autocommitentry_sessionid_asc_objectid_asc" ON PUBLIC."system$autocommitentry"("sessionid","objectid","id")
 CREATE MEMORY TABLE PUBLIC."system$language"("id" BIGINT NOT NULL PRIMARY KEY,"description" VARCHAR(200) COLLATE SQL_TEXT_UCC,"code" VARCHAR(20) COLLATE SQL_TEXT_UCC)
 ALTER SEQUENCE SYSTEM_LOBS.LOB_ID RESTART WITH 1
-ALTER SEQUENCE PUBLIC."myfirstmodule$coronamelding_melderid_mxseq" RESTART WITH 2
+ALTER SEQUENCE PUBLIC."coronameldingmodule$coronamelding_melderid_mxseq" RESTART WITH 2
 ALTER SEQUENCE PUBLIC."system$filedocument_fileid_mxseq" RESTART WITH 1
 SET DATABASE DEFAULT INITIAL SCHEMA PUBLIC
 GRANT USAGE ON DOMAIN INFORMATION_SCHEMA.SQL_IDENTIFIER TO PUBLIC
@@ -126,7 +126,7 @@ INSERT INTO "mendixsystem$entity" VALUES('660db38b-5ab4-4d15-b649-93a947ecea82',
 INSERT INTO "mendixsystem$entity" VALUES('67c28960-7a7a-11e6-bdf4-0800200c9a66','System.AutoCommitEntry','system$autocommitentry',NULL,FALSE)
 INSERT INTO "mendixsystem$entity" VALUES('685df5a6-1e02-49bb-a0b5-5a55c5e8313d','System.ScheduledEventInformation','system$scheduledeventinformation',NULL,FALSE)
 INSERT INTO "mendixsystem$entity" VALUES('76805df3-dede-435f-92a6-d6525c68a693','System.Language','system$language',NULL,FALSE)
-INSERT INTO "mendixsystem$entity" VALUES('78dfa042-d1a3-4e18-bbae-fef034dec798','MyFirstModule.CoronaMelding','myfirstmodule$coronamelding',NULL,FALSE)
+INSERT INTO "mendixsystem$entity" VALUES('78dfa042-d1a3-4e18-bbae-fef034dec798','CoronaMeldingModule.CoronaMelding','coronameldingmodule$coronamelding',NULL,FALSE)
 INSERT INTO "mendixsystem$entity" VALUES('7f7c72af-1ab7-4bf9-bed6-16db5c8fcf6f','System.TimeZone','system$timezone',NULL,FALSE)
 INSERT INTO "mendixsystem$entity" VALUES('92ef30a6-de04-423c-84fd-a21e9b9eeae2','System.UserRole','system$userrole',NULL,FALSE)
 INSERT INTO "mendixsystem$entity" VALUES('d4154981-8dac-4150-aec5-efa3ef62a7a2','System.XASInstance','system$xasinstance',NULL,FALSE)
@@ -239,17 +239,17 @@ INSERT INTO "mendixsystem$association" VALUES('956c1382-b9fc-3367-b0b2-cb67ee9ef
 INSERT INTO "mendixsystem$association" VALUES('bab4a1ab-7d40-47d5-8f21-fc99d089211d','System.User_TimeZone','system$user_timezone','282e2e60-88a5-469d-84a5-ba8d9151644f','7f7c72af-1ab7-4bf9-bed6-16db5c8fcf6f','system$userid','system$timezoneid',NULL,'idx_system$user_timezone_system$timezone_system$user')
 INSERT INTO "mendixsystem$association" VALUES('d88b344c-b1e5-4759-b60e-0348e63ac445','System.UserReportInfo_User','system$userreportinfo_user','1c90a770-98ef-45df-9267-b87973cc6581','282e2e60-88a5-469d-84a5-ba8d9151644f','system$userreportinfoid','system$userid',NULL,'idx_system$userreportinfo_user_system$user_system$userreportinfo')
 INSERT INTO "mendixsystem$association" VALUES('fc3944c4-7a19-4a4d-9b0d-4a0c9d7aeb23','System.BackgroundJob_XASInstance','system$backgroundjob_xasinstance','660db38b-5ab4-4d15-b649-93a947ecea82','d4154981-8dac-4150-aec5-efa3ef62a7a2','system$backgroundjobid','system$xasinstanceid',NULL,'idx_system$backgroundjob_xasinstance_system$xasinstance_system$backgroundjob')
-INSERT INTO "mendixsystem$version" VALUES('4.2','2020-03-11 09:47:29.141000','3.1.0','unversioned','ContainerTestApp')
+INSERT INTO "mendixsystem$version" VALUES('4.2','2020-03-12 12:17:32.211000','3.1.0','unversioned','ContainerTestApp')
 INSERT INTO "mendixsystem$sequence" VALUES('system$filedocument_fileid_mxseq','0f81688b-e719-4204-8f86-8fcd664a0992',1,0)
-INSERT INTO "mendixsystem$sequence" VALUES('myfirstmodule$coronamelding_melderid_mxseq','a9623dad-b32e-4b69-a368-50a423f0b5f9',1,0)
+INSERT INTO "mendixsystem$sequence" VALUES('coronameldingmodule$coronamelding_melderid_mxseq','a9623dad-b32e-4b69-a368-50a423f0b5f9',1,0)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('09b2f0fe-4a11-4afc-a16e-94992a3ebc3d',23,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('170ce49d-f29c-4fac-99a6-b55e8a3aeb39',16,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('1c90a770-98ef-45df-9267-b87973cc6581',21,1)
-INSERT INTO "mendixsystem$entityidentifier" VALUES('282e2e60-88a5-469d-84a5-ba8d9151644f',1,101)
+INSERT INTO "mendixsystem$entityidentifier" VALUES('282e2e60-88a5-469d-84a5-ba8d9151644f',1,401)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('2d6e1228-0ec2-493a-975a-c8f52e4b0371',7,1)
-INSERT INTO "mendixsystem$entityidentifier" VALUES('3078a23e-13b2-4a9b-84e4-2881fdee53c6',12,1)
+INSERT INTO "mendixsystem$entityidentifier" VALUES('3078a23e-13b2-4a9b-84e4-2881fdee53c6',12,101)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('37827192-315d-4ab6-85b8-f626f866ea76',11,1)
-INSERT INTO "mendixsystem$entityidentifier" VALUES('37f9fd49-5318-4c63-9a51-f761779b202f',22,101)
+INSERT INTO "mendixsystem$entityidentifier" VALUES('37f9fd49-5318-4c63-9a51-f761779b202f',22,301)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('3b6f5ca3-28d6-4581-b26e-7ce5bd0e6eeb',20,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('3d460fe3-2308-474b-8d3a-931ac838776f',6,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('4babd4c0-b903-4cb4-b1af-e59c4a5fcf3d',3,1)
@@ -266,8 +266,8 @@ INSERT INTO "mendixsystem$entityidentifier" VALUES('92ef30a6-de04-423c-84fd-a21e
 INSERT INTO "mendixsystem$entityidentifier" VALUES('9f2c1aca-9a03-46f8-97ab-d4e43141a396',9,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('a11d9b16-c2f9-4ebd-affa-45f3cd8ff090',17,1)
 INSERT INTO "mendixsystem$entityidentifier" VALUES('ce3860ff-2093-42cd-b462-8da7485fc01e',5,1)
-INSERT INTO "mendixsystem$entityidentifier" VALUES('d4154981-8dac-4150-aec5-efa3ef62a7a2',2,101)
-INSERT INTO "mendixsystem$properties" VALUES('Mendix.Runtime.DeploymentID','637195168210796834')
+INSERT INTO "mendixsystem$entityidentifier" VALUES('d4154981-8dac-4150-aec5-efa3ef62a7a2',2,401)
+INSERT INTO "mendixsystem$properties" VALUES('Mendix.Runtime.DeploymentID','637196124690873285')
 INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$backgroundjob_session_system$backgroundjobid','19892a2b-f17a-4c29-80c1-c81f8025b36c','60770e0f-201c-3f24-8a1e-d8b42a715ddb')
 INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$backgroundjob_xasinstance_system$backgroundjobid','fc3944c4-7a19-4a4d-9b0d-4a0c9d7aeb23','4fcadd5b-cfd5-3991-bdb8-19c4d63b1aa5')
 INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$scheduledeventinformation_xasinstance_system$scheduledeventinformationid','7b8a18de-fe6d-4735-9841-0d9d4760697e','b1eb1dd4-9f4c-3dae-9cde-9a7df66af36c')
@@ -280,8 +280,20 @@ INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$user_name','282
 INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$user_timezone_system$userid','bab4a1ab-7d40-47d5-8f21-fc99d089211d','61482ff9-64e6-366d-9055-524387b93b37')
 INSERT INTO "mendixsystem$unique_constraint" VALUES('uniq_system$userreportinfo_user_system$userreportinfoid','d88b344c-b1e5-4759-b60e-0348e63ac445','677bda5e-706d-3d41-b007-247640ca3be1')
 INSERT INTO "system$user" VALUES(281474976710657,'2020-03-11 08:48:03.895000',TRUE,'2020-03-11 08:48:03.895000','2020-03-11 08:48:04.108000',FALSE,TRUE,0,FALSE,'Anonymous_b266358c-0e9f-4049-b09e-abd22baf191a','{BCrypt}$2a$10$PCxjccEqflMSMCXcZDFW3.tcNsBeEZ9SYOnS9oJTtBrRTcE0kl6E.','System.User',NULL,281474976710657)
+INSERT INTO "system$user" VALUES(281474976710757,'2020-03-12 11:17:36.312000',TRUE,'2020-03-12 11:17:36.312000',NULL,FALSE,FALSE,0,FALSE,'MxAdmin','{BCrypt}$2a$10$odI150ydtQvOZTj5GTbpT.32YJTiUujWTPd19JnKSUomM8.5OhVsq','System.User',NULL,281474976710757)
+INSERT INTO "system$user" VALUES(281474976710857,'2020-03-12 11:19:30.057000',TRUE,'2020-03-12 11:19:30.057000','2020-03-12 11:19:30.237000',FALSE,TRUE,0,FALSE,'Anonymous_85dc69ea-1a47-4eaf-878b-d13f0c34a7b1','{BCrypt}$2a$10$424OHCIHLM3Shjch2u8qfOtDpws81yslMYoCQcidq.ZjrJjCYMsJO','System.User',NULL,281474976710857)
+INSERT INTO "system$user" VALUES(281474976710957,'2020-03-12 11:21:32.118000',TRUE,'2020-03-12 11:21:32.118000','2020-03-12 11:21:32.313000',FALSE,TRUE,0,FALSE,'Anonymous_f5420ea0-c72d-4a43-b15e-5d91f6dd3a53','{BCrypt}$2a$10$dwCpqcwRQu4CJHzT7OCjLOaZM8E0nmTP5hN7K0DJs0IZh0kTJknr6','System.User',NULL,281474976710957)
+INSERT INTO "system$user" VALUES(3377699720527873,'2020-03-12 11:17:34.456000',TRUE,'2020-03-12 11:17:34.456000',NULL,FALSE,FALSE,0,FALSE,'demo_administrator','{BCrypt}$2a$10$lt11sV6LtOm8rrCeMDmTwewkn8Q3ApaQJmDOs2u2/WduQb2LO754O','Administration.Account',NULL,3377699720527873)
+INSERT INTO "system$user" VALUES(3377699720527874,'2020-03-12 11:17:34.990000',TRUE,'2020-03-12 11:17:34.990000',NULL,FALSE,FALSE,0,FALSE,'demo_user','{BCrypt}$2a$10$cxFwDTA9Zihpkmey0JvD9eue6OVF2Y9vCxtQ.h2P8hm3hQysFg2qW','Administration.Account',NULL,3377699720527874)
 INSERT INTO "system$userroles" VALUES(281474976710657,2814749767106561)
+INSERT INTO "system$userroles" VALUES(281474976710757,2814749767106561)
+INSERT INTO "system$userroles" VALUES(281474976710857,2814749767106562)
+INSERT INTO "system$userroles" VALUES(281474976710957,2814749767106562)
+INSERT INTO "system$userroles" VALUES(3377699720527873,2814749767106561)
+INSERT INTO "system$userroles" VALUES(3377699720527874,2814749767106562)
 INSERT INTO "system$user_language" VALUES(281474976710657,7036874417766401)
+INSERT INTO "system$user_language" VALUES(281474976710857,7036874417766401)
+INSERT INTO "system$user_language" VALUES(281474976710957,7036874417766401)
 INSERT INTO "system$timezone" VALUES(2251799813685249,'(GMT+00:00) Abidjan/Africa',0,'Africa/Abidjan')
 INSERT INTO "system$timezone" VALUES(2251799813685250,'(GMT+00:00) Accra/Africa',0,'Africa/Accra')
 INSERT INTO "system$timezone" VALUES(2251799813685251,'(GMT+03:00) Addis Ababa/Africa',10800000,'Africa/Addis_Ababa')
@@ -800,7 +812,9 @@ INSERT INTO "system$userrole" VALUES(2814749767106561,'8dd52bfa-6d7e-453b-b506-3
 INSERT INTO "system$userrole" VALUES(2814749767106562,'53f5d6fa-6da9-4a71-b011-454ec052cce8','','User')
 INSERT INTO "system$grantableroles" VALUES(2814749767106561,2814749767106561)
 INSERT INTO "system$grantableroles" VALUES(2814749767106561,2814749767106562)
-INSERT INTO "myfirstmodule$coronamelding" VALUES(3659174697238529,1,'2020-02-29 23:00:00.000000','hoesten','feest')
-INSERT INTO "system$session" VALUES(6192449487634433,'1fa3a0a7-1ddf-49fd-9531-cb288e43b2e1','2020-03-11 08:48:04.218000','ef53752c-7fbb-42ae-ab98-df6d7dd285c9','2020-03-11 09:43:05.265000','65a995f7-a375-4291-bcdd-505937cd948e')
-INSERT INTO "system$session_user" VALUES(6192449487634433,281474976710657)
+INSERT INTO "administration$account" VALUES(3377699720527873,NULL,NULL,TRUE)
+INSERT INTO "administration$account" VALUES(3377699720527874,NULL,NULL,TRUE)
+INSERT INTO "coronameldingmodule$coronamelding" VALUES(3659174697238529,1,'2020-02-29 23:00:00.000000','hoesten','feest')
+INSERT INTO "system$session" VALUES(6192449487634633,'41306c7c-76dc-41c0-9b27-b17ac9bd08c6','2020-03-12 11:21:32.446000','a6471129-14a0-49aa-a3f1-259a9afb0fe8','2020-03-12 14:01:39.327000','bc5902e3-d60b-4fe0-8dbb-2a8b620eb1c9')
+INSERT INTO "system$session_user" VALUES(6192449487634633,281474976710957)
 INSERT INTO "system$language" VALUES(7036874417766401,'English, United States','en_US')

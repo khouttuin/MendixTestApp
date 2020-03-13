@@ -2,7 +2,7 @@
 //
 // WARNING: Code you write here will be lost the next time you deploy the project.
 
-package myfirstmodule.proxies;
+package coronameldingmodule.proxies;
 
 public class CoronaMelding
 {
@@ -13,7 +13,7 @@ public class CoronaMelding
 	/**
 	 * Internal name of this entity
 	 */
-	public static final java.lang.String entityName = "MyFirstModule.CoronaMelding";
+	public static final java.lang.String entityName = "CoronaMeldingModule.CoronaMelding";
 
 	/**
 	 * Enum describing members of this entity
@@ -41,15 +41,15 @@ public class CoronaMelding
 
 	public CoronaMelding(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		this(context, com.mendix.core.Core.instantiate(context, "MyFirstModule.CoronaMelding"));
+		this(context, com.mendix.core.Core.instantiate(context, "CoronaMeldingModule.CoronaMelding"));
 	}
 
 	protected CoronaMelding(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject coronaMeldingMendixObject)
 	{
 		if (coronaMeldingMendixObject == null)
 			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
-		if (!com.mendix.core.Core.isSubClassOf("MyFirstModule.CoronaMelding", coronaMeldingMendixObject.getType()))
-			throw new java.lang.IllegalArgumentException("The given object is not a MyFirstModule.CoronaMelding");
+		if (!com.mendix.core.Core.isSubClassOf("CoronaMeldingModule.CoronaMelding", coronaMeldingMendixObject.getType()))
+			throw new java.lang.IllegalArgumentException("The given object is not a CoronaMeldingModule.CoronaMelding");
 
 		this.coronaMeldingMendixObject = coronaMeldingMendixObject;
 		this.context = context;
@@ -59,31 +59,31 @@ public class CoronaMelding
 	 * @deprecated Use 'CoronaMelding.load(IContext, IMendixIdentifier)' instead.
 	 */
 	@java.lang.Deprecated
-	public static myfirstmodule.proxies.CoronaMelding initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixIdentifier mendixIdentifier) throws com.mendix.core.CoreException
+	public static coronameldingmodule.proxies.CoronaMelding initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixIdentifier mendixIdentifier) throws com.mendix.core.CoreException
 	{
-		return myfirstmodule.proxies.CoronaMelding.load(context, mendixIdentifier);
+		return coronameldingmodule.proxies.CoronaMelding.load(context, mendixIdentifier);
 	}
 
 	/**
 	 * Initialize a proxy using context (recommended). This context will be used for security checking when the get- and set-methods without context parameters are called.
 	 * The get- and set-methods with context parameter should be used when for instance sudo access is necessary (IContext.createSudoClone() can be used to obtain sudo access).
 	 */
-	public static myfirstmodule.proxies.CoronaMelding initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
+	public static coronameldingmodule.proxies.CoronaMelding initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
-		return new myfirstmodule.proxies.CoronaMelding(context, mendixObject);
+		return new coronameldingmodule.proxies.CoronaMelding(context, mendixObject);
 	}
 
-	public static myfirstmodule.proxies.CoronaMelding load(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixIdentifier mendixIdentifier) throws com.mendix.core.CoreException
+	public static coronameldingmodule.proxies.CoronaMelding load(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixIdentifier mendixIdentifier) throws com.mendix.core.CoreException
 	{
 		com.mendix.systemwideinterfaces.core.IMendixObject mendixObject = com.mendix.core.Core.retrieveId(context, mendixIdentifier);
-		return myfirstmodule.proxies.CoronaMelding.initialize(context, mendixObject);
+		return coronameldingmodule.proxies.CoronaMelding.initialize(context, mendixObject);
 	}
 
-	public static java.util.List<myfirstmodule.proxies.CoronaMelding> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
+	public static java.util.List<coronameldingmodule.proxies.CoronaMelding> load(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String xpathConstraint) throws com.mendix.core.CoreException
 	{
-		java.util.List<myfirstmodule.proxies.CoronaMelding> result = new java.util.ArrayList<myfirstmodule.proxies.CoronaMelding>();
-		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//MyFirstModule.CoronaMelding" + xpathConstraint))
-			result.add(myfirstmodule.proxies.CoronaMelding.initialize(context, obj));
+		java.util.List<coronameldingmodule.proxies.CoronaMelding> result = new java.util.ArrayList<coronameldingmodule.proxies.CoronaMelding>();
+		for (com.mendix.systemwideinterfaces.core.IMendixObject obj : com.mendix.core.Core.retrieveXPathQuery(context, "//CoronaMeldingModule.CoronaMelding" + xpathConstraint))
+			result.add(coronameldingmodule.proxies.CoronaMelding.initialize(context, obj));
 		return result;
 	}
 
@@ -286,7 +286,7 @@ public class CoronaMelding
 
 		if (obj != null && getClass().equals(obj.getClass()))
 		{
-			final myfirstmodule.proxies.CoronaMelding that = (myfirstmodule.proxies.CoronaMelding) obj;
+			final coronameldingmodule.proxies.CoronaMelding that = (coronameldingmodule.proxies.CoronaMelding) obj;
 			return getMendixObject().equals(that.getMendixObject());
 		}
 		return false;
@@ -303,7 +303,7 @@ public class CoronaMelding
 	 */
 	public static java.lang.String getType()
 	{
-		return "MyFirstModule.CoronaMelding";
+		return "CoronaMeldingModule.CoronaMelding";
 	}
 
 	/**
